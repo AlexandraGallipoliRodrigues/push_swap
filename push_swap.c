@@ -6,7 +6,7 @@
 /*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 09:50:42 by agallipo          #+#    #+#             */
-/*   Updated: 2021/09/27 13:21:35 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/09/27 14:04:39 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,18 @@ void	ft_push_swap(char **argv)
 		temp = ft_lstnew(argv[i]);
 		printf("%s\n", temp->content);
 		ft_lstadd_back(&stack_a->next, temp);
-	//	temp = NULL;
 		i++;
 	}
 }
+
+char** ft_arguments(char **argv)
+{
+	int		i;
+	char	**arguments;
+
+
+	while (argv[i] != '\0')
+	{
 int main (int argc, char *argv[])
 {
 	ft_push_swap(argv);
