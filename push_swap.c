@@ -18,8 +18,8 @@ void	ft_push_swap(char **argv)
 	t_list	*temp;
 	int		i;
 
-	stack_a = ft_lstnew(argv[1]);
-	i = 2;
+	stack_a = ft_lstnew(argv[0]);
+	i = 1;
 	printf("%s\n", stack_a->content);
 	while (argv[i] != '\0')
 	{
@@ -30,17 +30,45 @@ void	ft_push_swap(char **argv)
 	}
 }
 
-char** ft_arguments(char **argv)
+/*char** ft_arguments(char **argv)
 {
 	int		i;
 	char	**arguments;
-
-
+	
+	i = 0;
 	while (argv[i] != '\0')
 	{
+		arguments = ft_split(argv[i], ' ');
+		i++;
+	}
+	return (arguments);
+}*/
+
 int main (int argc, char *argv[])
 {
-	ft_push_swap(argv);
+	char	**arguments;
+	int		i;
+	char 	*chk;
+	//arguments = (char **)malloc(sizeof(char*) * 200);
+
+	i = 1;
+	while (argc != 1)
+	{
+		chk = ft_strchr(argv[i], ' ');
+		if (chk != NULL)
+		{
+			arguments = ft_split(argv[i], ' ');
+			ft_push_swap(arguments);
+		}
+		else
+			ft_push_swap(argv);
+		argc--; 
+		i++;
+	}
+	/*
+	arguments = ft_split(argv[i], ' ');
+	//arguments = ft_arguments(argv);
+	ft_push_swap(arguments);*/
 	return (0);
 }
 

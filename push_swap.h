@@ -22,6 +22,8 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
+char	*ft_strchr(const char *str, int c);
+char	**ft_split(char const *s, char c);
 t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
 void	ft_lstadd_front(t_list **alst, t_list *new);
