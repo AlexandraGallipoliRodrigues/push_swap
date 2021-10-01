@@ -6,7 +6,7 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 09:50:42 by agallipo          #+#    #+#             */
-/*   Updated: 2021/09/30 12:40:32 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/01 12:51:56 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,27 @@
     }
 
 }*/
-static void ft_sa(t_list *first)
+static void ft_sa(t_list **stack_a)
 {
-	t_list	*second;
 	t_list	*aux;
 	
-
-	second = first->next;
-	aux = second;
-	second->content = first->content;
-	first->content = aux->content;
-	printf("holaiaaa\n");
+	aux = *stack_a;
+	*stack_a = (*stack_a)->next;
+	aux->next = (*stack_a)->next;
+	(*stack_a)->next = aux;
 }
-static t_list	*ft_push_swap(char **argv, t_list *first)
+
+static void ft_sb(t_list **stack_b)
+{
+	t_list	*aux;
+	
+	aux = *stack_b;
+	*stack_b = (*stack_b)->next;
+	aux->next = (*stack_b)->next;
+	(*stack_b)->next = aux;
+}
+
+static t_list	*ft_push_swap(char **argv, t_list *stack_a)
 {
 	t_list	*temp;
 	int		i;
@@ -45,37 +53,36 @@ static t_list	*ft_push_swap(char **argv, t_list *first)
 	while (argv[i] != '\0')
 	{
 		temp = ft_lstnew(argv[i]);
-		ft_lstadd_back(&first, temp);
+		ft_lstadd_back(&stack_a, temp);
 		i++;
 	}
-	return (first);
+	return (stack_a);
 }
 
 int main (int argc, char *argv[])
 {
 	char	**arguments;
-	t_list	*first;
-	t_list	*temp;
+	t_list	*stack_a;
 	t_list	*aux;
 	int		i;
 
 	i = 2;
-	first = ft_lstnew(argv[1]);
+	stack_a = ft_lstnew(argv[1]);
 	while (argc > 2)
 	{
 		arguments = ft_split(argv[i], ' ');
-		temp = ft_push_swap(arguments, first);
+		stack_a = ft_push_swap(arguments, stack_a);
 		argc-- && i++;
 	}
-	ft_sa(first);
-	aux = first;
+	ft_sa(&stack_a);
+	aux = stack_a;
 	while(aux)
 	{
 		printf("%s\n", aux->content);
 		aux = aux->next;
 	}
 
-	printf("FIRST%s\n", first->content);
-	system("leaks a.out");
+	printf("FIRST%s\n", stack_a->content);
+	//system("leaks a.out");
 	return (0);
 }
