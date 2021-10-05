@@ -6,7 +6,7 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:40:57 by agallipo          #+#    #+#             */
-/*   Updated: 2021/09/28 13:22:57 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/09/29 12:38:09 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 			while (last->next)
 				last = last->next;
 			last->next = new;
+			new->next = NULL;
 		}
 	}
 }

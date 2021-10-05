@@ -6,7 +6,7 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 13:40:28 by agallipo          #+#    #+#             */
-/*   Updated: 2021/09/27 11:17:59 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/05 10:51:50 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstadd_front(t_list **alst, t_list *new)
 {
-	if (alst == NULL)
+	if (*alst == NULL)
 	{
 		*alst = new;
 		return ;
