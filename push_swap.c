@@ -47,7 +47,7 @@ static void	ft_pa(t_list **stack_a, t_list **stack_b)
 static void ft_sa(t_list **stack_a)
 {
 	t_list	*aux;
-	
+
 	aux = *stack_a;
 	*stack_a = (*stack_a)->next;
 	aux->next = (*stack_a)->next;
@@ -57,7 +57,7 @@ static void ft_sa(t_list **stack_a)
 static void ft_sb(t_list **stack_b)
 {
 	t_list	*aux;
-	
+
 	aux = *stack_b;
 	*stack_b = (*stack_b)->next;
 	aux->next = (*stack_b)->next;
@@ -95,6 +95,29 @@ static void ft_rr(t_list **stack_a, t_list **stack_b)
 	ft_rb(stack_b);
 }
 
+static void ft_rrb(t_list **stack_b)
+{
+	t_list	*aux;
+	t_list	*last;
+	int		altura;
+
+	last = *stack_b;
+	altura = 0;
+	while (last->next)
+	{
+		last = last->next;
+		altura++;
+	}
+	aux = ft_lstnew(last->content);
+	ft_lstadd_front(stack_b, aux);
+	last = *stack_b;
+	while (altura != 0)
+	{
+		last = last->next;
+		altura--;
+	}
+	last->next = NULL;
+}
 static void ft_rra(t_list **stack_a)
 {
 	t_list	*aux;
@@ -119,6 +142,11 @@ static void ft_rra(t_list **stack_a)
 	last->next = NULL;
 }
 
+static void ft_rrr(t_list **stack_a, t_list **stack_b)
+{
+	ft_rra(stack_a);
+	ft_rrb(stack_b);
+}
 static t_list	*ft_push_swap(char **argv, t_list *stack_a)
 {
 	t_list	*temp;
