@@ -6,7 +6,7 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 09:50:42 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/05 12:59:30 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/05 13:22:25 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,24 @@ static void ft_rra(t_list **stack_a)
 {
 	t_list	*aux;
 	t_list	*last;
+	int		altura;
 
 	last = *stack_a;
+	altura = 0;
 	while (last->next)
+	{
 		last = last->next;
+		altura++;
+	}
 	aux = ft_lstnew(last->content);
-	aux->next = *stack_a;
-	*stack_a = aux;
-	free(last->content);
-//	free(last);
-//	last = 0;
-//	last->content = 0;
-/*	last->next = *stack_a;
-	*stack_a = last;*/
+	ft_lstadd_front(stack_a, aux);
+	last = *stack_a;
+	while (altura != 0)
+	{
+		last = last->next;
+		altura--;
+	}
+	last->next = NULL;
 }
 
 static t_list	*ft_push_swap(char **argv, t_list *stack_a)
