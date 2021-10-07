@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juancarlospopapopa <juancarlospopapopa@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:48:18 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/06 13:09:43 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/07 13:06:19 by juancarlosp      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PUSH_SWAP_H
 # include <stdio.h>
 # include <stdlib.h>
-#include <unistd.h>
+# include <unistd.h>
 
 typedef struct s_list
 {
@@ -33,9 +33,9 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-void 	ft_sa(t_list **stack_a);
-void 	ft_sb(t_list **stack_b);
-void 	ft_ss(t_list **stack_a, t_list **stack_b);
+void	ft_sa(t_list **stack_a);
+void	ft_sb(t_list **stack_b);
+void	ft_ss(t_list **stack_a, t_list **stack_b);
 void	ft_pa(t_list **stack_a, t_list **stack_b);
 void	ft_pb(t_list **stack_a, t_list **stack_b);
 void	ft_ra(t_list **stack_a);
@@ -44,5 +44,6 @@ void	ft_rr(t_list **stack_a, t_list **stack_b);
 void	ft_rra(t_list **stack_a);
 void	ft_rrb(t_list **stack_b);
 void	ft_rrr(t_list **stack_a, t_list **stack_b);
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
+void	ft_three(t_list **stack_a);
 #endif
