@@ -6,7 +6,7 @@
 /*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 11:42:04 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/06 11:42:08 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/11 20:21:50 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void ft_rrb(t_list **stack_b)
 		altura--;
 	}
 	last->next = NULL;
+	write(1, "rrb\n", 4);
 }
 void ft_rra(t_list **stack_a)
 {
@@ -58,10 +59,12 @@ void ft_rra(t_list **stack_a)
 		altura--;
 	}
 	last->next = NULL;
+	write(1, "rra\n", 4);
 }
 
 void ft_rrr(t_list **stack_a, t_list **stack_b)
 {
 	ft_rra(stack_a);
 	ft_rrb(stack_b);
+	write(1, "rrr\n", 4);
 }
