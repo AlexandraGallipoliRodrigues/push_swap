@@ -6,7 +6,7 @@
 /*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 17:12:08 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/08 20:38:03 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/13 22:53:40 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,21 +95,23 @@ int	main (int argc, char *argv[])
 	char	**arguments;
 	t_list	*stack_a;
 	t_list	*stack_b;
-	t_list	*aux2;
-	t_list	*aux;
 	int		i;
+	int		org;
 
 	i = 1;
-	if (argc <= 1)
+	if (argc <= 2)
 		return(0);
+	printf("error %i\n",  ft_check_error(stack_a));
 	while (argc > 1)
 	{
 		arguments = ft_split(argv[i], ' ');
 		stack_a = ft_push_swap(arguments, stack_a);
 		argc-- && i++;
 	}
-	 i = ft_check_nums(&stack_a);
-	 printf("num: %d\n", i);
+	i = ft_check_nums(&stack_a);
+	printf("num: %d\n", i);
+	org = ft_median(stack_a);
+	printf("median: %i\n", org);
 	if (ft_check_ord(&stack_a) == 0)
 		return (0);
 	else

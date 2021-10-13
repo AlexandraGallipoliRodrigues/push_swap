@@ -6,7 +6,7 @@
 /*   By: juancarlospopapopa <juancarlospopapopa@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:48:18 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/08 20:37:59 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/13 22:30:05 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,7 @@ int		ft_low(t_list	**stack_a);
 int		ft_max(t_list	**stack_a);
 int		ft_check_nums(t_list **stack_a);
 void	ft_print_lst(t_list **stack_a, t_list **stack_b);
+int		*ft_organised_array(t_list *stack_a);
+int		ft_median(t_list	*stack_a);
+int		ft_check_error(t_list *stack_a);
 #endif
