@@ -6,7 +6,7 @@
 /*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 17:12:08 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/13 22:53:40 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/25 13:56:16 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,11 @@ int	main (int argc, char *argv[])
 	i = 1;
 	if (argc <= 2)
 		return(0);
-	printf("error %i\n",  ft_check_error(stack_a));
+	if (ft_check_error(stack_a) == 1)
+	{
+		printf("ERROR\n");
+		return (0);
+	}
 	while (argc > 1)
 	{
 		arguments = ft_split(argv[i], ' ');

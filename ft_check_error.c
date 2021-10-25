@@ -6,7 +6,7 @@
 /*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 22:19:42 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/13 22:53:37 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/25 13:55:53 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static	int	ft_isdigit(int c)
 {
-	if (c >= '0' && c <= '9')
+	if (c >= 0 && c <= 9)
 		return (1);
 	else
 		return (0);
 }
-
+/*
 static	int	ft_not_repeated(t_list	*stack_a)
 {
 	int	x;
@@ -43,20 +43,34 @@ static	int	ft_not_repeated(t_list	*stack_a)
 	}
 	return (1);
 }
+static int	ft_non_repeated(char	**argv)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (argv[i] != '\0')
+	{
+		j = 0;
+		while (argv[i][j] != '\0')
+		{
 
 int ft_check_error(t_list *stack_a)
 {
 	int		i;
 	t_list	*temp;
 
+	i = 0;
 	temp = stack_a;
 	while (temp)
 	{
 		i = ft_isdigit(temp->content);
-		if (i == 0)
-			return (0);
+		printf("%i\n", temp->content);
+		if (i == 1)
+			return (1);
 		temp = temp->next;
 	}
+	return (0);
 	i = ft_not_repeated(stack_a);
 	if (i == 0)
 	{
@@ -65,5 +79,33 @@ int ft_check_error(t_list *stack_a)
 	}
 	else
 		return (1);
+}
+*/
+int ft_check_error(char **argv)
+{
+	int	i;
+	int	j;
+	int chk;
+
+	i = 0;
+	while (argv[i] != '\0')
+	{
+		j = 0;
+		if (argv[i][j] == '+' || argv[i][j] == '-')
+		{
+			j++;
+			if (argv[i][j] == '+' || argv[i][j] == '-')
+				return (0);
+			else
+				while (argv[i][j] != '\0')
+				{
+					if (ft_isdigit(argv[i][j]) == 0)
+						return (0);
+					j++;
+				}
+		}
+		i++;
+	}
+	return (1);
 }
 
