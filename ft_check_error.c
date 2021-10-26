@@ -6,15 +6,15 @@
 /*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 22:19:42 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/25 13:55:53 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/26 11:25:34 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static	int	ft_isdigit(int c)
+static	int	ft_isdigit(char c)
 {
-	if (c >= 0 && c <= 9)
+	if (c >= '0' && c <= '9')
 		return (1);
 	else
 		return (0);

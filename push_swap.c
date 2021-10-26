@@ -6,7 +6,7 @@
 /*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 17:12:08 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/25 13:56:16 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:43:48 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static void	ft_algorithm(int i, t_list **stack_a, t_list **stack_b)
 		ft_three(stack_a);
 	else if (i > 3 && i <= 5)
 		ft_five(stack_a, stack_b);
+	else if (i >= 100)
+		ft_big(stack_a, stack_b, 5);
 }
 
 void	ft_print_lst(t_list **stack_a, t_list **stack_b)
@@ -96,12 +98,12 @@ int	main (int argc, char *argv[])
 	t_list	*stack_a;
 	t_list	*stack_b;
 	int		i;
-	int		org;
+	int		*org;
 
 	i = 1;
 	if (argc <= 2)
 		return(0);
-	if (ft_check_error(stack_a) == 1)
+	if (ft_check_error(argv) == 0)
 	{
 		printf("ERROR\n");
 		return (0);
@@ -112,10 +114,9 @@ int	main (int argc, char *argv[])
 		stack_a = ft_push_swap(arguments, stack_a);
 		argc-- && i++;
 	}
+	org = ft_organised_array(stack_a);
 	i = ft_check_nums(&stack_a);
 	printf("num: %d\n", i);
-	org = ft_median(stack_a);
-	printf("median: %i\n", org);
 	if (ft_check_ord(&stack_a) == 0)
 		return (0);
 	else
