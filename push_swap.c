@@ -6,7 +6,7 @@
 /*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 17:12:08 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/26 13:43:48 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/10/28 17:16:11 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ static int	ft_check_ord(t_list **stack_a)
 	lst = prev->next;
 	while (lst)
 	{
-		//printf("prev : %d\n", prev->content);
-		//printf("lst : %d\n", lst->content);
 		if (prev->content > lst->content)
 			return (1);
 		prev = prev->next;
@@ -116,7 +114,6 @@ int	main (int argc, char *argv[])
 	}
 	org = ft_organised_array(stack_a);
 	i = ft_check_nums(&stack_a);
-	printf("num: %d\n", i);
 	if (ft_check_ord(&stack_a) == 0)
 		return (0);
 	else
