@@ -6,7 +6,7 @@
 /*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 22:19:42 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/26 11:25:34 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/02 13:38:24 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static	int	ft_not_repeated(t_list	*stack_a)
 		x++;
 	}
 	return (1);
-}
+}*/
 static int	ft_non_repeated(char	**argv)
 {
 	int	i;
@@ -55,7 +55,7 @@ static int	ft_non_repeated(char	**argv)
 		while (argv[i][j] != '\0')
 		{
 
-int ft_check_error(t_list *stack_a)
+/*int ft_check_error(t_list *stack_a)
 {
 	int		i;
 	t_list	*temp;
@@ -87,22 +87,23 @@ int ft_check_error(char **argv)
 	int	j;
 	int chk;
 
-	i = 0;
+	i = 1;
 	while (argv[i] != '\0')
 	{
 		j = 0;
 		if (argv[i][j] == '+' || argv[i][j] == '-')
-		{
 			j++;
-			if (argv[i][j] == '+' || argv[i][j] == '-')
-				return (0);
-			else
-				while (argv[i][j] != '\0')
-				{
-					if (ft_isdigit(argv[i][j]) == 0)
-						return (0);
-					j++;
-				}
+		if (argv[i][j] == '+' || argv[i][j] == '-')
+			return (0);
+		else
+		{
+			while (argv[i][j] != '\0')
+			{
+				printf("HOLA\n");
+				if (ft_isdigit(argv[i][j]) == 0)
+					return (0);
+				j++;
+			}
 		}
 		i++;
 	}

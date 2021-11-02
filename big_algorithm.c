@@ -6,28 +6,30 @@
 /*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:28:31 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/28 21:15:44 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/02 13:38:38 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int ft_sort_chunk(t_list **stack_a, t_list **stack_b, int pos)
+/*static int ft_sort_chunk(t_list **stack_a, t_list **stack_b, int pos)
 {
 	int		i;
 	int		count;
 
 	count = 0;
-	while (pos > 0)
+	while (pos > 0 && *stack_b)
 	{
-		if ((*stack_b)->content == ft_max(stack_b))
+		if (*stack_b && (*stack_b)->content == ft_max(stack_b))
+		{
 			ft_pa(stack_a, stack_b);
+			pos--;
+		}
 		else
 		{
 			ft_rb(stack_b);
 			count++;
 		}
-		pos--;
 	}
 	return(count);
 }
@@ -44,7 +46,7 @@ static void	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 	while (chk > 0)
 	{
 		org = size/chk;
-		while (org)
+		while (org >= 0)
 		{
 			count = ft_sort_chunk(stack_a, stack_b, pos);
 			pos = count;
@@ -58,6 +60,54 @@ static void	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 		}
 		chk--;
 	}
+}*/
+static void	ft_while_rb(t_list **stack_a, t_list **stack_b)
+{
+	while ((*stack_b)->content != ft_max(stack_b))
+		ft_rb(stack_b);
+	ft_pa(stack_a, stack_b);
+}
+
+static void	ft_while_rrb(t_list **stack_a, t_list **stack_b)
+{
+	while ((*stack_b)->content != ft_max(stack_b))
+		ft_rrb(stack_b);
+	ft_pa(stack_a, stack_b);
+}
+
+static int	ft_locate(t_list **stack_b)
+{
+	t_list	*temp;
+	int		i;
+	int		size;
+
+	i = 0;
+	temp = *stack_b;
+	size = ft_check_nums(stack_b);
+	while (temp->content != ft_max(stack_b))
+	{
+		temp = temp->next;
+		i++;
+	}
+	if (i < (size / 2))
+		return (0);
+	return (1);
+}
+static void		ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
+{
+	int	size;
+
+	size = ft_check_nums(stack_b);
+	while (size > 1)
+	{
+		if (ft_locate(stack_b) == 0)
+			ft_while_rb(stack_a, stack_b);
+		else
+			ft_while_rrb(stack_a, stack_b);
+		size = ft_check_nums(stack_b);
+	}
+	ft_pa(stack_a, stack_b);
+
 }
 static	void	ft_sort_int_tab(int	*org, int	size)
 {
@@ -127,23 +177,16 @@ int	ft_median(t_list *stack_a)
 
 static void	ft_loop(t_list **stack_a, t_list **stack_b, int pos,int *org)
 {
-	t_list	*temp;
 	int		i;
 
 	i = ft_check_nums(stack_a);
-	temp = *stack_a;
 //	printf("ORG[POS] : %i\n", org[pos]);
-	while (i >= 0 && temp)	{
-		if (temp->content <= org[pos])
-		{
-			temp= temp->next;
+	while (i >= 0 && *stack_a)
+	{
+		if ((*stack_a)->content <= org[pos])
 			ft_pb(stack_a, stack_b);
-		}
 		else
-		{
-			temp = temp->next;
 			ft_ra(stack_a);
-		}
 		i--;
 	}
 }
