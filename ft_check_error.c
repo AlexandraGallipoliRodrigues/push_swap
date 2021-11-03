@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: juancarlospopapopa <juancarlospopapopa@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 22:19:42 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/02 13:38:24 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/03 15:46:58 by juancarlosp      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static	int	ft_not_repeated(t_list	*stack_a)
 	}
 	return (1);
 }*/
-static int	ft_non_repeated(char	**argv)
+/*tatic int	ft_non_repeated(char	**argv)
 {
 	int	i;
 	int	j;
@@ -53,7 +53,7 @@ static int	ft_non_repeated(char	**argv)
 	{
 		j = 0;
 		while (argv[i][j] != '\0')
-		{
+		{*/
 
 /*int ft_check_error(t_list *stack_a)
 {
@@ -99,7 +99,6 @@ int ft_check_error(char **argv)
 		{
 			while (argv[i][j] != '\0')
 			{
-				printf("HOLA\n");
 				if (ft_isdigit(argv[i][j]) == 0)
 					return (0);
 				j++;

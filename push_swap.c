@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juancarlospopapopa <juancarlospopapopa@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 17:12:08 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/03 12:26:02 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/03 19:38:56 by juancarlosp      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	ft_algorithm(int i, t_list **stack_a, t_list **stack_b)
 	else if (i <= 100)
 		ft_big(stack_a, stack_b, 5);
 	else if (i <= 500)
-		ft_big(stack_a, stack_b, 10);
+		ft_big(stack_a, stack_b, 5);
 }
 
 void	ft_print_lst(t_list **stack_a, t_list **stack_b)
@@ -103,11 +103,11 @@ int	main (int argc, char *argv[])
 	i = 1;
 	if (argc <= 2)
 		return(0);
-	if (ft_check_error(argv) == 0)
+	/*if (ft_check_error(argv) == 0)
 	{
 		printf("ERROR\n");
 		return (0);
-	}
+	}*/
 	while (argc > 1)
 	{
 		arguments = ft_split(argv[i], ' ');

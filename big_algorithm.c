@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   big_algorithm.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juancarlospopapopa <juancarlospopapopa@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:28:31 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/03 12:38:37 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/03 20:02:11 by juancarlosp      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 {
 	int	size;
 	int	i;
-	
+
 	i = 1;
 	size = ft_check_nums(stack_b);
 	while (size > 1)
@@ -189,7 +189,7 @@ static void	ft_loop(t_list **stack_a, t_list **stack_b, int pos,int *org, int t)
 	{
 		if ((*stack_a)->content <= org[pos])
 		{
-			printf("ORG[POS] %i %i\n", org[pos], org[pos] / 2);
+			//printf("ORG[POS] %i %i\n", org[pos], org[pos] / 2);
 			if ((*stack_a)->content <= org[pos - t])
 			{
 				ft_pb(stack_a, stack_b);
@@ -219,13 +219,13 @@ void	ft_big(t_list **stack_a, t_list **stack_b, int chk)
 	{
 		//printf("POSICION: %i\nSIZE: %i\n", pos, size);
 		ft_loop(stack_a, stack_b, pos, org, (size / temp) / 2);
-		ft_back_to_a(stack_a, stack_b, temp);
+		//ft_back_to_a(stack_a, stack_b, temp);
 		pos += pos;
 		if (pos > size)
 			pos = size - 1;
 		chk--;
 	}
-	//ft_back_to_a(stack_a, stack_b, temp);
+	ft_back_to_a(stack_a, stack_b, temp);
 	//ft_print_lst(stack_a, stack_b);
 }
 
