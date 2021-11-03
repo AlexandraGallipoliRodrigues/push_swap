@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 17:12:08 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/02 13:38:36 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/03 12:26:02 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ static void	ft_algorithm(int i, t_list **stack_a, t_list **stack_b)
 		ft_three(stack_a);
 	else if (i > 3 && i <= 5)
 		ft_five(stack_a, stack_b);
-	else if (i >= 100)
+	else if (i <= 100)
 		ft_big(stack_a, stack_b, 5);
-	else if (i >= 500)
-		ft_big(stack_a, stack_b, 100);
+	else if (i <= 500)
+		ft_big(stack_a, stack_b, 10);
 }
 
 void	ft_print_lst(t_list **stack_a, t_list **stack_b)
