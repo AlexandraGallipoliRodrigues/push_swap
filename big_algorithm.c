@@ -6,7 +6,7 @@
 /*   By: juancarlospopapopa <juancarlospopapopa@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:28:31 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/03 20:02:11 by juancarlosp      ###   ########.fr       */
+/*   Updated: 2021/11/19 16:51:49 by juancarlosp      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,15 @@ static void	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 		chk--;
 	}
 }*/
-static void	ft_while_rb(t_list **stack_a, t_list **stack_b)
-{
-	while ((*stack_b)->content != ft_max(stack_b))
-		ft_rb(stack_b);
-	ft_pa(stack_a, stack_b);
-}
-
-static void	ft_while_rrb(t_list **stack_a, t_list **stack_b)
-{
-	while ((*stack_b)->content != ft_max(stack_b))
-		ft_rrb(stack_b);
-	ft_pa(stack_a, stack_b);
-}
-
 static int	ft_locate(t_list **stack_b)
 {
 	t_list	*temp;
 	int		i;
+	int		j;
 	int		size;
 
 	i = 0;
+	j = 0;
 	temp = *stack_b;
 	size = ft_check_nums(stack_b);
 	while (temp->content != ft_max(stack_b))
@@ -89,10 +77,57 @@ static int	ft_locate(t_list **stack_b)
 		temp = temp->next;
 		i++;
 	}
-	if (i < (size / 2))
+	temp = *stack_b;
+	while (temp->content != ft_low(stack_b))
+	{
+		temp = temp->next;
+		j++;
+	}
+	if ((i < (size / 2)) && i < j)
 		return (0);
-	return (1);
+	else if ((j < (size / 2)) && j < i)
+		return (1);
+	else if ((i > (size / 2)) && i > j)
+		return (2);
+	return (3);
 }
+
+static void	ft_while_rb(t_list **stack_a, t_list **stack_b)
+{
+	if (ft_locate(stack_b) == 0)
+	{
+		while ((*stack_b)->content != ft_max(stack_b))
+			ft_rb(stack_b);
+		ft_pa(stack_a, stack_b);
+	}
+	else if (ft_locate(stack_b) == 1)
+	{
+		while ((*stack_b)->content != ft_low(stack_b))
+			ft_rb(stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_ra(stack_a);
+	}
+	//ft_pa(stack_a, stack_b);
+}
+
+static void	ft_while_rrb(t_list **stack_a, t_list **stack_b)
+{
+	if (ft_locate(stack_b) == 2)
+	{
+		while ((*stack_b)->content != ft_max(stack_b))
+			ft_rrb(stack_b);
+		ft_pa(stack_a, stack_b);
+	}
+	if (ft_locate(stack_b) == 3)
+	{
+		while ((*stack_b)->content != ft_low(stack_b))
+			ft_rrb(stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_ra(stack_a);
+	}
+	//ft_pa(stack_a, stack_b);
+}
+
 static int	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 {
 	int	size;
@@ -102,7 +137,7 @@ static int	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 	size = ft_check_nums(stack_b);
 	while (size > 1)
 	{
-		if (ft_locate(stack_b) == 0)
+		if (ft_locate(stack_b) == 0 || ft_locate(stack_b) == 1)
 			ft_while_rb(stack_a, stack_b);
 		else
 			ft_while_rrb(stack_a, stack_b);
@@ -111,8 +146,8 @@ static int	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 	}
 	ft_pa(stack_a, stack_b);
 	return (1);
-
 }
+
 static	void	ft_sort_int_tab(int	*org, int	size)
 {
 	int	x;
@@ -219,13 +254,13 @@ void	ft_big(t_list **stack_a, t_list **stack_b, int chk)
 	{
 		//printf("POSICION: %i\nSIZE: %i\n", pos, size);
 		ft_loop(stack_a, stack_b, pos, org, (size / temp) / 2);
-		//ft_back_to_a(stack_a, stack_b, temp);
+		ft_back_to_a(stack_a, stack_b, temp);
 		pos += pos;
 		if (pos > size)
 			pos = size - 1;
 		chk--;
 	}
-	ft_back_to_a(stack_a, stack_b, temp);
+	//ft_back_to_a(stack_a, stack_b, temp);
 	//ft_print_lst(stack_a, stack_b);
 }
 
