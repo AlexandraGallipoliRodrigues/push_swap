@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rr.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 11:41:54 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/11 20:19:25 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:42:43 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void ft_ra(t_list **stack_a)
 {
 	t_list	*aux;
 
+	if (!(*stack_a))
+		return ;
 	aux = *stack_a;
 	*stack_a = (*stack_a)->next;
 	aux->next = NULL;
@@ -27,6 +29,8 @@ void ft_rb(t_list **stack_b)
 {
 	t_list	*aux;
 
+	if (!(*stack_b))
+		return ;
 	aux = *stack_b;
 	*stack_b = (*stack_b)->next;
 	aux->next = NULL;

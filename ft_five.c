@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_five.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallipo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 17:12:50 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/11 20:22:11 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/22 16:17:08 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,34 @@
 
 int	ft_max(t_list **stack_a)
 {
-	t_list	*max;
+	int		max;
 	t_list	*lst;
 
-	max = *stack_a;
-	lst = max->next;
+	max = (*stack_a)->content;
+	lst = (*stack_a)->next;
 	while (lst)
 	{
-		if (max->content < lst->content)
-			max = lst;
+		if (max < lst->content)
+			max = lst->content;
 		lst = lst->next;
 	}
-	return (max->content);
+	return (max);
 }
 
 int	ft_low(t_list **stack_a)
 {
-	t_list	*low;
+	int		low;
 	t_list	*lst;
 
-	low = *stack_a;
-	lst = low->next;
+	low = (*stack_a)->content;
+	lst = (*stack_a)->next;
 	while (lst)
 	{
-		if (low->content > lst->content)
-			low = lst;
+		if (low > lst->content)
+			low = lst->content;
 		lst = lst->next;
 	}
-	return (low->content);
+	return (low);
 }
 
 void	ft_five(t_list **stack_a, t_list **stack_b)

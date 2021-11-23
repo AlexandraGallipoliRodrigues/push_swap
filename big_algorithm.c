@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   big_algorithm.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juancarlospopapopa <juancarlospopapopa@    +#+  +:+       +#+        */
+/*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:28:31 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/19 16:51:49 by juancarlosp      ###   ########.fr       */
+/*   Updated: 2021/11/23 13:53:14 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,26 @@ static void	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 		chk--;
 	}
 }*/
+/*static t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}*/
+static void ft_pass(t_list **stack_a, int pos, int *org)
+{
+	while ((*stack_a)->content < org[pos - 1])
+		ft_ra(stack_a);
+	ft_ra(stack_a);
+}
+static int	ft_compare(int size, int i)
+{
+	if (i > size / 2)
+		return (size - i);
+	return (i);
+}
 static int	ft_locate(t_list **stack_b)
 {
 	t_list	*temp;
@@ -83,13 +103,29 @@ static int	ft_locate(t_list **stack_b)
 		temp = temp->next;
 		j++;
 	}
-	if ((i < (size / 2)) && i < j)
+	i = ft_compare(size, i);
+	j = ft_compare(size, j);
+	if (i < j)
+	{
+		if (i < (size / 2))
+			return (0);
+		else
+			return (2);
+	}
+	else
+	{
+		if (j < (size / 2))
+			return (1);
+		else
+			return (3);
+	}
+	/*if ((i < (size / 2)) && i < j)
 		return (0);
 	else if ((j < (size / 2)) && j < i)
 		return (1);
 	else if ((i > (size / 2)) && i > j)
 		return (2);
-	return (3);
+	return (3);*/
 }
 
 static void	ft_while_rb(t_list **stack_a, t_list **stack_b)
@@ -107,7 +143,7 @@ static void	ft_while_rb(t_list **stack_a, t_list **stack_b)
 		ft_pa(stack_a, stack_b);
 		ft_ra(stack_a);
 	}
-	//ft_pa(stack_a, stack_b);
+	//ift_pa(stack_a, stack_b);
 }
 
 static void	ft_while_rrb(t_list **stack_a, t_list **stack_b)
@@ -131,9 +167,7 @@ static void	ft_while_rrb(t_list **stack_a, t_list **stack_b)
 static int	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 {
 	int	size;
-	int	i;
 
-	i = 1;
 	size = ft_check_nums(stack_b);
 	while (size > 1)
 	{
@@ -142,33 +176,33 @@ static int	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 		else
 			ft_while_rrb(stack_a, stack_b);
 		size = ft_check_nums(stack_b);
-		i++;
 	}
 	ft_pa(stack_a, stack_b);
+	//ft_ra(stack_a);
 	return (1);
 }
 
-static	void	ft_sort_int_tab(int	*org, int	size)
+static	void	ft_sort_int_tab(int	*org, int	size) // Funciona, no tocar.
 {
-	int	x;
-	int	y;
+	int	i;
+	int	j;
 	int	temp;
 
-	x = 0;
-	while (x <= size - 1)
+	i = 0;
+	while (i < size - 1)
 	{
-		y = 0;
-		while (y <= size - 2)
+		j = 1;
+		while (j < size)
 		{
-			if (org[y] > org[x])
+			if (org[j] < org[j - 1])
 			{
-				temp = org[x];
-				org[x] = org[y];
-				org[y] = temp;
+				temp = org[j];
+				org[j] = org[j - 1];
+				org[j - 1] = temp;
 			}
-			y++;
+			j++;
 		}
-		x++;
+		i++;
 	}
 }
 
@@ -183,13 +217,13 @@ int	*ft_organised_array(t_list	*stack_a)
 	temp = stack_a;
 	org = malloc(sizeof(int) * size);
 	i = 0;
-	while (i < size && temp)
+	while (temp)
 	{
 		org[i] = temp->content;
 		temp = temp->next;
 		i++;
 	}
-	ft_sort_int_tab(org, size);
+	ft_sort_int_tab(org, size); // Hasta aqui, funciona :)
 	return (org);
 }
 
@@ -214,27 +248,35 @@ int	ft_median(t_list *stack_a)
 	return (median);
 }
 
-static void	ft_loop(t_list **stack_a, t_list **stack_b, int pos,int *org, int t)
+static int ft_check_left(t_list **stack_a,int *org, int pos, int min)
 {
-	int	i;
+	t_list	*temp;
 
-	i = ft_check_nums(stack_a);
-//	printf("ORG[POS] : %i\n", org[pos]);
-	while (i >= 0 && *stack_a)
+	temp = *stack_a;
+	while (temp)
 	{
-		if ((*stack_a)->content <= org[pos])
+		if (temp->content >= org[min] && temp->content < org[pos])
+			return (1);
+		temp = temp->next;
+	}
+	return (0);
+}
+
+// Esta función pasa de A a B los menores o iguales que el max del chunck
+static void	ft_loop(t_list **stack_a, t_list **stack_b, int pos,int *org, int min)
+{
+	int i = ft_check_nums(stack_a);
+	//printf("ORG[POS] : %i   I: %i\n", org[pos], i);
+	while (1)
+	{
+		if (!ft_check_left(stack_a, org, pos, min))
+			break;
+		if ((*stack_a)->content < org[pos] && (*stack_a)->content >= org[min])
 		{
-			//printf("ORG[POS] %i %i\n", org[pos], org[pos] / 2);
-			if ((*stack_a)->content <= org[pos - t])
-			{
-				ft_pb(stack_a, stack_b);
-				ft_rb(stack_b);
-			}
-			else
-				ft_pb(stack_a, stack_b);
+			ft_pb(stack_a, stack_b);
 		}
 		else
-			ft_rra(stack_a);
+			ft_ra(stack_a);
 		i--;
 	}
 }
@@ -245,22 +287,48 @@ void	ft_big(t_list **stack_a, t_list **stack_b, int chk)
 	int 	size;
 	int		*org;
 	int		temp;
+	int		min;
+	int		i = 0;
 
-	temp = chk;
 	org = ft_organised_array(*stack_a);
 	size = ft_check_nums(stack_a);
-	pos = size/chk;
-	while (chk > 0)
+	min = 0;
+	pos = (size/chk);
+	// Hasta aqui, de nuevo bien ;(
+	//printf("POSICION: %i\nSIZE: %i\n", pos, size);
+	//printf("Iteracion %i min %i pos %i\n", i, org[min], org[pos]);
+
+	temp = pos;
+	while (chk > 0) // 5 v3c3s
 	{
-		//printf("POSICION: %i\nSIZE: %i\n", pos, size);
-		ft_loop(stack_a, stack_b, pos, org, (size / temp) / 2);
-		ft_back_to_a(stack_a, stack_b, temp);
-		pos += pos;
-		if (pos > size)
+		if (chk == 1)
+			ft_loop(stack_a, stack_b, (pos - 1), org, min);
+		else
+			ft_loop(stack_a, stack_b, pos, org, min);
+		if (i == 3)
+		{
+			//ft_print_lst(stack_a, stack_b);
+			exit(0);
+		}
+		/*ft_back_to_a(stack_a, stack_b, temp);
+		if (chk != 1)
+			ft_pass(stack_a, pos, org);*/
+		min = pos;
+		pos += temp;
+		if (chk == 1)
 			pos = size - 1;
 		chk--;
+		i++;
 	}
-	//ft_back_to_a(stack_a, stack_b, temp);
+	ft_pass(stack_a, size - 1, org);
+	ft_ra(stack_a);
 	//ft_print_lst(stack_a, stack_b);
+	/*printf("min %i pos %i", min, pos);
+	ft_loop(stack_a, stack_b, pos, org, min);
+	//ft_back_to_a(stack_a, stack_b, temp);*/
+	/*while (org[i] != 21)
+	{
+
+	}*/
 }
 
