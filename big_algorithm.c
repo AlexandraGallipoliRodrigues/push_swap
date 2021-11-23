@@ -6,7 +6,7 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:28:31 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/23 13:53:14 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:24:54 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	ft_compare(int size, int i)
 		return (size - i);
 	return (i);
 }
-static int	ft_locate(t_list **stack_b)
+static void	ft_locate(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*temp;
 	int		i;
@@ -89,7 +89,7 @@ static int	ft_locate(t_list **stack_b)
 	int		size;
 
 	i = 0;
-	j = 0;
+	//j = 0;
 	temp = *stack_b;
 	size = ft_check_nums(stack_b);
 	while (temp->content != ft_max(stack_b))
@@ -97,27 +97,35 @@ static int	ft_locate(t_list **stack_b)
 		temp = temp->next;
 		i++;
 	}
-	temp = *stack_b;
-	while (temp->content != ft_low(stack_b))
+	//temp = *stack_b;
+	/*while (temp->content != ft_low(stack_b))
 	{
 		temp = temp->next;
 		j++;
-	}
-	i = ft_compare(size, i);
-	j = ft_compare(size, j);
-	if (i < j)
+	}*/
+	//i = ft_compare(size, i);
+	//j = ft_compare(size, j);
+	//if (i < j)
+	//{
+	if (i < (size / 2))
 	{
-		if (i < (size / 2))
-			return (0);
-		else
-			return (2);
+		while ((*stack_b)->content != ft_max(stack_b))
+			ft_rb(stack_b);
+		ft_pa(stack_a, stack_b);
 	}
+
+		/*else
+			return (2);*/
+	// }
 	else
 	{
-		if (j < (size / 2))
-			return (1);
-		else
-			return (3);
+		while ((*stack_b)->content != ft_max(stack_b))
+			ft_rrb(stack_b);
+		ft_pa(stack_a, stack_b);
+		/*if (j < (size / 2))
+			return (1);*/
+		//else
+		//return (3);
 	}
 	/*if ((i < (size / 2)) && i < j)
 		return (0);
@@ -128,7 +136,46 @@ static int	ft_locate(t_list **stack_b)
 	return (3);*/
 }
 
-static void	ft_while_rb(t_list **stack_a, t_list **stack_b)
+static int ft_is_chunk(int temp, int *org, int pos, int min)
+{
+	if (temp >= org[min] && temp < org[pos])
+		return (1);
+	return (0);
+}
+static void ft_find_chk_nums(t_list **stack_a, t_list **stack_b, int *org, int pos, int min)
+{
+	t_list	*temp;
+	int		i;
+	int		size;
+
+	temp = *stack_a;
+	i = 0;
+	size = ft_check_nums(stack_a);
+	while (ft_is_chunk(temp->content, org, pos, min) == 0)
+	{
+		i++;
+		temp = temp->next;
+	}
+	if (i < (size / 2))
+	{
+		while (i > 0)
+		{
+			ft_ra(stack_a);
+			i--;
+		}
+	}
+	else
+	{
+		while (i < size)
+		{
+			ft_rra(stack_a);
+			i++;
+		}
+	}
+	ft_pb(stack_a, stack_b);
+}
+
+/*static void	ft_while_rb(t_list **stack_a, t_list **stack_b)
 {
 	if (ft_locate(stack_b) == 0)
 	{
@@ -162,7 +209,7 @@ static void	ft_while_rrb(t_list **stack_a, t_list **stack_b)
 		ft_ra(stack_a);
 	}
 	//ft_pa(stack_a, stack_b);
-}
+}*/
 
 static int	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 {
@@ -171,10 +218,11 @@ static int	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 	size = ft_check_nums(stack_b);
 	while (size > 1)
 	{
-		if (ft_locate(stack_b) == 0 || ft_locate(stack_b) == 1)
+		/*if (ft_locate(stack_b) == 0 || ft_locate(stack_b) == 1)
 			ft_while_rb(stack_a, stack_b);
 		else
-			ft_while_rrb(stack_a, stack_b);
+			ft_while_rrb(stack_a, stack_b);*/
+		ft_locate(stack_a, stack_b);
 		size = ft_check_nums(stack_b);
 	}
 	ft_pa(stack_a, stack_b);
@@ -271,12 +319,17 @@ static void	ft_loop(t_list **stack_a, t_list **stack_b, int pos,int *org, int mi
 	{
 		if (!ft_check_left(stack_a, org, pos, min))
 			break;
-		if ((*stack_a)->content < org[pos] && (*stack_a)->content >= org[min])
+		/*if ((*stack_a)->content < org[pos] && (*stack_a)->content >= org[min])
+			ft_pb(stack_a, stack_b);*/
+		ft_find_chk_nums(stack_a, stack_b, org, pos, min);
+		/*else
 		{
-			ft_pb(stack_a, stack_b);
-		}
-		else
-			ft_ra(stack_a);
+			if (ft_locate(stack_b) == 0 || ft_locate(stack_b) == 1)
+				ft_while_ra(stack_a, stack_b);
+			else
+				ft_while_rra(stack_a, stack_b);
+		}*/
+
 		i--;
 	}
 }
@@ -305,13 +358,13 @@ void	ft_big(t_list **stack_a, t_list **stack_b, int chk)
 			ft_loop(stack_a, stack_b, (pos - 1), org, min);
 		else
 			ft_loop(stack_a, stack_b, pos, org, min);
-		if (i == 3)
+		/*if (i == 9)
 		{
-			//ft_print_lst(stack_a, stack_b);
+			ft_print_lst(stack_a, stack_b);
 			exit(0);
-		}
-		/*ft_back_to_a(stack_a, stack_b, temp);
-		if (chk != 1)
+		}*/
+		//ft_back_to_a(stack_a, stack_b, temp);
+		/*if (chk != 1)
 			ft_pass(stack_a, pos, org);*/
 		min = pos;
 		pos += temp;
@@ -320,9 +373,10 @@ void	ft_big(t_list **stack_a, t_list **stack_b, int chk)
 		chk--;
 		i++;
 	}
-	ft_pass(stack_a, size - 1, org);
-	ft_ra(stack_a);
-	//ft_print_lst(stack_a, stack_b);
+	ft_back_to_a(stack_a, stack_b, temp);
+	//ft_pass(stack_a, size - 1, org);
+	//ft_ra(stack_a);
+	ft_print_lst(stack_a, stack_b);
 	/*printf("min %i pos %i", min, pos);
 	ft_loop(stack_a, stack_b, pos, org, min);
 	//ft_back_to_a(stack_a, stack_b, temp);*/
