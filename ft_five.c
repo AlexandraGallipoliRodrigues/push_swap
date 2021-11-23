@@ -6,7 +6,7 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 17:12:50 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/22 16:17:08 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/23 20:54:37 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,4 @@ void	ft_five(t_list **stack_a, t_list **stack_b)
 	}
 	ft_pa(stack_a,  stack_b);
 	ft_ra(stack_a);
-	ft_print_lst(stack_a, stack_b);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juancarlospopapopa <juancarlospopapopa@    +#+  +:+       +#+        */
+/*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 22:19:42 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/03 15:46:58 by juancarlosp      ###   ########.fr       */
+/*   Updated: 2021/11/23 21:12:51 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static	int	ft_isdigit(char c)
 {
-	if (c >= '0' && c <= '9')
+	if ((c >= 48 && c <= 57) || c == ' ')
 		return (1);
 	else
 		return (0);
@@ -42,18 +42,29 @@ static	int	ft_not_repeated(t_list	*stack_a)
 		x++;
 	}
 	return (1);
-}*/
-/*tatic int	ft_non_repeated(char	**argv)
+}*//*
+static int	ft_non_repeated(char	**argv)
 {
 	int	i;
 	int	j;
+	int	n;
 
 	i = 0;
 	while (argv[i] != '\0')
 	{
 		j = 0;
 		while (argv[i][j] != '\0')
-		{*/
+		{
+			n = 1;
+			while (argv[i][n] != '\0')
+			{
+				if
+			}
+
+
+		}
+	}
+}*/
 
 /*int ft_check_error(t_list *stack_a)
 {
