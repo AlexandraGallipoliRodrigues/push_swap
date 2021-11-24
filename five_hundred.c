@@ -6,7 +6,7 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 20:33:06 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/23 19:31:09 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/24 10:45:47 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_loop(t_list **stack_a, t_list **stack_b, int pos,int *org, int min)
 	while (1)
 	{
 		if (!ft_check_left(stack_a, org, pos, min))
-			break;
+			break; 
 		ft_find_chk_nums(stack_a, stack_b, org, pos, min);
 	}
 }

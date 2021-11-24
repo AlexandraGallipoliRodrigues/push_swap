@@ -6,7 +6,7 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 22:19:42 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/23 21:12:51 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/24 13:32:53 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,35 @@ static	int	ft_not_repeated(t_list	*stack_a)
 		x++;
 	}
 	return (1);
-}*//*
-static int	ft_non_repeated(char	**argv)
+}*/
+void	ft_non_repeated(t_list	*stack_a)
 {
 	int	i;
 	int	j;
-	int	n;
+	int	size;
+	t_list	*temp;
 
-	i = 0;
-	while (argv[i] != '\0')
+	size = ft_check_nums(&stack_a);
+	i = stack_a->content;
+	while (size - 1 > 0)
 	{
-		j = 0;
-		while (argv[i][j] != '\0')
+		temp = stack_a->next;
+		j = temp->content;
+		while (temp->next)
 		{
-			n = 1;
-			while (argv[i][n] != '\0')
+			if (j == i)
 			{
-				if
+				printf("ERROR\n");
+				exit (0);
 			}
-
-
+			temp = temp->next;
+			j = temp->content;
 		}
+		stack_a = stack_a->next;
+		i = stack_a->content;
+		size--;
 	}
-}*/
+}
 
 /*int ft_check_error(t_list *stack_a)
 {
@@ -92,7 +98,7 @@ static int	ft_non_repeated(char	**argv)
 		return (1);
 }
 */
-int ft_check_error(char **argv)
+/*int ft_check_error(char **argv)
 {
 	int	i;
 	int	j;
@@ -102,21 +108,15 @@ int ft_check_error(char **argv)
 	while (argv[i] != '\0')
 	{
 		j = 0;
-		if (argv[i][j] == '+' || argv[i][j] == '-')
-			j++;
-		if (argv[i][j] == '+' || argv[i][j] == '-')
-			return (0);
-		else
+		while (argv[i][j] != '\0')
 		{
-			while (argv[i][j] != '\0')
-			{
-				if (ft_isdigit(argv[i][j]) == 0)
-					return (0);
+			if (ft_isdigit(argv[i][j]) == 0)
+				return (0);
 				j++;
 			}
 		}
 		i++;
 	}
 	return (1);
-}
+}*/
 
