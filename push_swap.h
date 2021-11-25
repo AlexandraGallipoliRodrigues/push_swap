@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juancarlospopapopa <juancarlospopapopa@    +#+  +:+       +#+        */
+/*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:48:18 by agallipo          #+#    #+#             */
-/*   Updated: 2021/10/26 13:25:44 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:55:28 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ typedef struct s_list
 	int				content;
 	struct s_list	*next;
 }				t_list;
+typedef struct s_chunk
+{
+	int	pos;
+	int	min;
+	int	temp;
+	int	*org;
+}				t_chunk;
 
 char	*ft_strchr(const char *str, int c);
 char	**ft_split(char const *s, char c);
@@ -54,5 +61,14 @@ void	ft_print_lst(t_list **stack_a, t_list **stack_b);
 int		*ft_organised_array(t_list *stack_a);
 int		ft_median(t_list	*stack_a);
 int		ft_check_error(char **argv);
-void	ft_big(t_list **stack_a, t_list	**stack_b, int	chk);
+void	ft_big(t_list **stack_a, t_list	**stack_b, int	chunk);
+void	ft_locate(t_list **stack_a, t_list **stack_b);
+int		ft_is_chunk(int temp, int *org, int pos, int min);
+void	ft_find_chk(t_list **stack_a, t_list **stack_b, int pos, t_chunk *chk);
+void	ft_sort_int_tab(int	*org, int	size);
+int		ft_check_left(t_list **stack_a, int pos, t_chunk *chk);
+void	ft_five_hundred(t_list **stack_a, t_list **stack_b, int chk);
+void	ft_back_to_a(t_list **stack_a, t_list **stack_b);
+void	ft_loop(t_list **stack_a, t_list **stack_b, int pos, t_chunk *chk);
+void	ft_non_repeated(t_list	**stack_a);
 #endif

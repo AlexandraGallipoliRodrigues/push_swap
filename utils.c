@@ -6,48 +6,31 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:28:31 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/23 18:55:50 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/25 12:20:04 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_locate(t_list **stack_a, t_list **stack_b)
+static void	ft_while_ra(t_list **stack_a, int i)
 {
-	t_list	*temp;
-	int		i;
-	int		size;
-
-	i = 0;
-	temp = *stack_b;
-	size = ft_check_nums(stack_b);
-	while (temp->content != ft_max(stack_b))
+	while (i > 0)
 	{
-		temp = temp->next;
+		ft_ra(stack_a);
+		i--;
+	}
+}
+
+static void	ft_while_rra(t_list **stack_a, int i, int size)
+{
+	while (i < size)
+	{
+		ft_rra(stack_a);
 		i++;
 	}
-	if (i < (size / 2))
-	{
-		while ((*stack_b)->content != ft_max(stack_b))
-			ft_rb(stack_b);
-		ft_pa(stack_a, stack_b);
-	}
-	else
-	{
-		while ((*stack_b)->content != ft_max(stack_b))
-			ft_rrb(stack_b);
-		ft_pa(stack_a, stack_b);
-	}
 }
 
-int ft_is_chunk(int temp, int *org, int pos, int min)
-{
-	if (temp >= org[min] && temp < org[pos])
-		return (1);
-	return (0);
-}
-
-void	ft_find_chk_nums(t_list **stack_a, t_list **stack_b, int *org, int pos, int min)
+void	ft_find_chk(t_list **stack_a, t_list **stack_b, int pos, t_chunk *chk)
 {
 	t_list	*temp;
 	int		i;
@@ -56,27 +39,15 @@ void	ft_find_chk_nums(t_list **stack_a, t_list **stack_b, int *org, int pos, int
 	temp = *stack_a;
 	i = 0;
 	size = ft_check_nums(stack_a);
-	while (ft_is_chunk(temp->content, org, pos, min) == 0)
+	while (ft_is_chunk(temp->content, chk->org, pos, chk->min) == 0)
 	{
 		i++;
 		temp = temp->next;
 	}
 	if (i < (size / 2))
-	{
-		while (i > 0)
-		{
-			ft_ra(stack_a);
-			i--;
-		}
-	}
+		ft_while_ra(stack_a, i);
 	else
-	{
-		while (i < size)
-		{
-			ft_rra(stack_a);
-			i++;
-		}
-	}
+		ft_while_rra(stack_a, i, size);
 	ft_pb(stack_a, stack_b);
 }
 
@@ -104,14 +75,15 @@ void	ft_sort_int_tab(int	*org, int	size)
 	}
 }
 
-int ft_check_left(t_list **stack_a,int *org, int pos, int min)
+int	ft_check_left(t_list **stack_a, int pos, t_chunk *chk)
 {
 	t_list	*temp;
 
 	temp = *stack_a;
 	while (temp)
 	{
-		if (temp->content >= org[min] && temp->content < org[pos])
+		if (temp->content >= chk->org[chk->min]
+			&& temp->content < chk->org[pos])
 			return (1);
 		temp = temp->next;
 	}

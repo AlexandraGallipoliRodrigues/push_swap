@@ -1,30 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_big.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 11:53:08 by agallipo          #+#    #+#             */
+/*   Updated: 2021/11/25 12:56:11 by agallipo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_big(t_list **stack_a, t_list **stack_b, int chk)
+void	ft_big(t_list **stack_a, t_list **stack_b, int chunk)
 {
-	int		pos;
-	int 	size;
-	int		*org;
-	int		temp;
-	int		min;
+	t_chunk	chk;
+	int		size;
 
-	org = ft_organised_array(*stack_a);
+	chk.org = ft_organised_array(*stack_a);
 	size = ft_check_nums(stack_a);
-	min = 0;
-	pos = (size/chk);
-	temp = pos;
-	while (chk > 0)
+	chk.min = 0;
+	chk.pos = (size / chunk);
+	chk.temp = chk.pos;
+	while (chunk > 0)
 	{
-		if (chk == 1)
-			ft_loop(stack_a, stack_b, (pos - 1), org, min);
+		if (chunk == 1)
+			ft_loop(stack_a, stack_b, (chk.pos - 1), &chk);
 		else
-			ft_loop(stack_a, stack_b, pos, org, min);
-		min = pos;
-		pos += temp;
-		if (chk == 1)
-			pos = size - 1;
-		chk--;
+			ft_loop(stack_a, stack_b, chk.pos, &chk);
+		chk.min = chk.pos;
+		chk.pos += chk.temp;
+		if (chunk == 1)
+			chk.pos = size - 1;
+		chunk--;
 	}
-	ft_back_to_a(stack_a, stack_b, temp);
+	ft_back_to_a(stack_a, stack_b);
 }

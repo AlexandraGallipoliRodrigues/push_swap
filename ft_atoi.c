@@ -6,14 +6,13 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 11:41:05 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/24 13:58:05 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/25 12:51:32 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "push_swap.h"
 
-void ft_error(char c)
+void	ft_error(char c)
 {
 	if (c < '0' || c > '9')
 	{

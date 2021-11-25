@@ -6,14 +6,13 @@
 /*   By: agallipo <agallipo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 20:33:06 by agallipo          #+#    #+#             */
-/*   Updated: 2021/11/24 10:45:47 by agallipo         ###   ########.fr       */
+/*   Updated: 2021/11/25 12:55:38 by agallipo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "push_swap.h"
 
-int	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
+void	ft_back_to_a( t_list **stack_a, t_list **stack_b)
 {
 	int	size;
 
@@ -24,24 +23,23 @@ int	ft_back_to_a(t_list **stack_a, t_list **stack_b, int chk)
 		size = ft_check_nums(stack_b);
 	}
 	ft_pa(stack_a, stack_b);
-	return (1);
 }
 
-void	ft_loop(t_list **stack_a, t_list **stack_b, int pos,int *org, int min)
+void	ft_loop(t_list **stack_a, t_list **stack_b, int pos, t_chunk *chk)
 {
 	while (1)
 	{
-		if (!ft_check_left(stack_a, org, pos, min))
-			break; 
-		ft_find_chk_nums(stack_a, stack_b, org, pos, min);
+		if (!ft_check_left(stack_a, pos, chk))
+			break ;
+		ft_find_chk(stack_a, stack_b, pos, chk);
 	}
 }
 
 int	*ft_organised_array(t_list	*stack_a)
 {
-	int	i;
-	int	*org;
-	int	size;
+	int		i;
+	int		*org;
+	int		size;
 	t_list	*temp;
 
 	size = ft_check_nums(&stack_a);
@@ -54,34 +52,31 @@ int	*ft_organised_array(t_list	*stack_a)
 		temp = temp->next;
 		i++;
 	}
-	ft_sort_int_tab(org, size); // Hasta aqui, funciona :)
+	ft_sort_int_tab(org, size);
 	return (org);
 }
 
-void	ft_five_hundred(t_list **stack_a, t_list **stack_b, int chk)
+void	ft_five_hundred(t_list **stack_a, t_list **stack_b, int chunk)
 {
-	int		pos;
-	int 	size;
-	int		*org;
-	int		temp;
-	int		min;
+	int		size;
+	t_chunk	chk;
 
-	org = ft_organised_array(*stack_a);
+	chk.org = ft_organised_array(*stack_a);
 	size = ft_check_nums(stack_a);
-	min = 0;
-	pos = (size/chk);
-	temp = pos;
-	while (chk > 0)
+	chk.min = 0;
+	chk.pos = (size / chunk);
+	chk.temp = chk.pos;
+	while (chunk > 0)
 	{
-		if (chk == 1)
-			ft_loop(stack_a, stack_b, (pos - 1), org, min);
+		if (chunk == 1)
+			ft_loop(stack_a, stack_b, (chk.pos - 1), &chk);
 		else
-			ft_loop(stack_a, stack_b, pos, org, min);
-		min = pos;
-		pos += temp;
-		if (chk == 1)
-			pos = size - 1;
-		chk--;
+			ft_loop(stack_a, stack_b, chk.pos, &chk);
+		chk.min = chk.pos;
+		chk.pos += chk.temp;
+		if (chunk == 1)
+			chk.pos = size - 1;
+		chunk--;
 	}
-	ft_back_to_a(stack_a, stack_b, temp);
+	ft_back_to_a(stack_a, stack_b);
 }
